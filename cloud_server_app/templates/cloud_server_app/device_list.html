@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <style>
+        /* [Your existing styles here...] */
+    </style>
+</head>
+<body>
+    <!-- Add this just before your device list -->
+    <div class="add-device">
+        <form action="{% url 'add-device' %}" method="post">
+            {% csrf_token %}
+            <label for="device_name">Add Device:</label>
+            <input type="text" name="device_name" required>
+            <input type="submit" value="Add Device">
+        </form>
+    </div>
+    <div class="center">
+        <p class="title">Available Devices</p>
+        <div class="file-list-container">
+            <ul>
+                {% for device in device_list %}
+                    <li>
+                        <button class="file-button" onclick="handleDeviceClick('{{ device.id }}')">
+                            {{ device.name }}
+                        </button>
+                    </li>
+                {% empty %}
+                    <li>No devices to display.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function handleDeviceClick(deviceId) {
+            window.location.href = '/device_files/' + deviceId;
+            // Removed the alert for cleanliness, but you can add it back if needed
+        }
+    </script>
+</body>
+</html>

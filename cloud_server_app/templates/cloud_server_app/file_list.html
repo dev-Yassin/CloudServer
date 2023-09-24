@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            background-color: #2B3467;
+            margin: 0;
+            padding: 0;
+        }
+
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden; /* Hide overflow for the .center container */
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #BAD7E9;
+        }
+
+        .file-list-container {
+            max-height: calc(100vh - 100px); /* Adjust as needed to accommodate titles */
+            overflow-y: auto; /* Enable vertical scrolling for the file list */
+            padding: 10px; /* Add some padding for spacing around files */
+            
+        }
+        /* Remove bullet points from the list */
+        .file-list-container ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .file-button {
+            border: 0;
+            background-color: #BAD7E9;
+            color: #2B3467;
+            padding: 10px 40px; /* Increase button width as needed */
+            cursor: pointer;
+            margin-bottom: 20px; /* Increase margin to separate buttons */
+            font-size: 16px;
+            font-weight: 400;
+            width: 100%; /* Make buttons expand to the full container width */
+            text-align: left; /* Left-align button text */
+            border-radius: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <p class="title">Cloud Drive: CSC 3374 02</p>
+        <p class="title">The files you can currently download are:</p>
+        <div class="file-list-container">
+            <ul>
+                {% for file_name in object_list %}
+                    <li>
+                        <button class="file-button" onclick="handleButtonClick('{{ file_name }}')">
+                            {{ file_name }}
+                        </button>
+                    </li>
+                {% empty %}
+                    <li>No files to display.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function handleButtonClick(fileName) {
+            window.location.href = '/download/' + fileName;
+            alert('Clicked on file: ' + fileName);
+        }
+    </script>
+</body>
+</html>
